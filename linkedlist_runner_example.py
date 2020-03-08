@@ -1,3 +1,4 @@
+import copy
 class LinkedList:
     def __init__(self, head=None):
         self.head = head
@@ -45,23 +46,25 @@ class Node:
 def rearrange(linkedlist):
     if type(linkedlist) != LinkedList:
         raise ValueError('Not a linked list')
-
-    p1 = linkedlist.head
-    p2 = linkedlist.head.next
-    
-    while p2.next is not None:    
-        p1 = p1.next
-        p2 = p2.next.next
-        print(p1.value, p2.value)
-    p2 = p1.next
-    p1 = linkedlist.head
+    p2 = linkedlist.head
+    p1 = linkedlist.head.next
     while p1.next is not None:
-        temp = p1.next
-        p1.next = p2
-        p2.next = temp
-        print(p1.value, p2.value)
-        p1 = p1.next
         p2 = p2.next
+        p1 = p1.next.next
+    p1 = linkedlist.head
+    p2 = p2.next
+    print('Prior to weaving Linked List')
+    linkedlist.traverse()
+    while p2.next is not None:
+        temp = copy.deepcopy(p1.next)
+        temp2 = copy.deepcopy(p2)
+        temp2.next = None
+        p1.next = temp2
+        temp2.next = temp
+        p2 = p2.next
+        p1 = p1.next.next
+    p1.next = p2
+    linkedlist.traverse()
 
 
 linkedlist = LinkedList()
@@ -89,5 +92,5 @@ linkedlist.add(n9)
 linkedlist.add(n10)
 linkedlist.add(n11)
 linkedlist.add(n12)
-linkedlist.traverse()
+# linkedlist.traverse()
 rearrange(linkedlist)
