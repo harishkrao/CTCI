@@ -5,15 +5,15 @@ class anagram:
     def __init__(self, words=[]):
         self.words = words
 
+# O(N^2) * N log N = O(N^2)
+
     def group_anagrams(self):
-        temp_dict = defaultdict()
-        temp_list = []
-        for val in self.words:
-            for c in val:
-                temp_list.append(c)
-            temp_list.sort()
-            v = ''.join(temp_list)
-            if v not in temp_dict.keys():
+        temp_dict = defaultdict() # O(1)
+        temp_list = [] # O(1)
+        for val in self.words: # O(N) # O(1)
+            temp_list.sort() # O(N)
+            v = ''.join([i for i in val]) # O(1)
+            if v not in temp_dict.keys(): # O(1)
                 temp_dict[v] = [val]
             else:
                 temp_dict[v].append(val)

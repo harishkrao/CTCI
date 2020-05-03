@@ -1,20 +1,34 @@
-class Unique():
-    def __init__(self, s):
-        self.s = s
-   
-    def unique(self):
-        if len(self.s) == 0:
-            return False
-        d = {}
-        for val in self.s:
-            d[val] = d.get(val, 0) + 1
+from collections import defaultdict
+import logging
 
-        for k, v in d.items():
-            if v > 1:
+# from collections import defaultdict
+
+class UniqueString:
+    def __init__(self, string=''):
+        self.string = string
+
+    def unique(self):
+        d = {}
+        for v in self.string:
+            # print(v)
+            d[v] = d.get(v, 0) + 1
+        for a in d.values():
+            if a > 1:
                 return False
         return True
 
+    def unique_inplace(self):
+        self.string = ''.join(sorted(self.string))
+        return self.string
 
-i = 'aa'
-U = Unique(i)
-print(U.unique())
+
+    def run(self):
+        sub = self.unique()
+        sub1 = self.unique_inplace()
+        return sub, sub1
+
+
+if __name__ == "__main__":
+    u = UniqueString('finding')
+    results = u.run()
+    print(results)
