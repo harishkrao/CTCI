@@ -1,32 +1,40 @@
-# class quicksort:
-def qsort(array, start, end):
-    if start >= end:
-        return
-    p = partition(array, start, end)
-    qsort(array, start, p - 1)
-    qsort(array, p + 1, end)
+class quicksort:
+    def __init__(self, array):
+        self.array = array
+
+    def qsort(self, array, lo, hi):
+        if lo >= hi:
+            return
+        p = self.partition(array, lo, hi)
+        self.qsort(array, lo, p-1)
+        self.qsort(array, p+1, hi)
+
+    def partition(self, array, lo, hi):
+        pivot = array[lo]
+        start = lo + 1
+        end = hi
+
+        while True:
+            while start <= end and array[start] <= pivot:
+                start += 1
+            print(start, end, array)
+            while start <= end and array[end] >= pivot:
+                end -= 1
+            if start <= end:
+                array[start], array[end] = array[end], array[start]
+            else:
+                break
+        print(start, end)
+        array[end], array[lo] = array[lo], array[end]
+        return end
 
 
-def partition(array, start, end):
-    pivot = array[start]
-    low = start + 1
-    high = end
-
-    while True:
-        while low <= high and array[high] >= pivot:
-            high = high - 1
-        while low <= high and array[low] <= pivot:
-            low = low + 1
-
-        if low <= high:
-            array[low], array[high] = array[high], array[low]
-        else:
-            break
-    array[start], array[high] = array[high], array[start]
-
-    return high
+def main():
+    array = [29, 99, 27, 41, 66, 28, 44, 78, 87, 19, 31, 76, 58, 88, 83, 97, 12, 21, 44]
+    q = quicksort(array)
+    q.qsort(array, 0, len(array)-1)
+    print(array)
 
 
-array = [29, 99, 27, 41, 66, 28, 44, 78, 87, 19, 31, 76, 58, 88, 83, 97, 12, 21, 44]
-qsort(array, 0, len(array) - 1)
-print(array)
+if __name__ == "__main__":
+    main()
