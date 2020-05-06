@@ -1,32 +1,32 @@
-import random
-
-def sort(a, lo, hi):
-    if lo >= hi:
+# class quicksort:
+def qsort(array, start, end):
+    if start >= end:
         return
-    p = partition(a, lo, hi)
-    sort(a, lo, p-1)
-    sort(a, p+1, hi)
+    p = partition(array, start, end)
+    qsort(array, start, p - 1)
+    qsort(array, p + 1, end)
 
 
-def partition(a, lo, hi):
-    start = lo + 1
-    end = hi
-    pivot = a[lo]
+def partition(array, start, end):
+    pivot = array[start]
+    low = start + 1
+    high = end
 
     while True:
-        while start <= end and a[start] <= pivot:
-            start += 1
-        while start <= end and a[end] >= pivot:
-            end -= 1
-        if lo <= hi:
-            a[start], a[end] = a[end], a[start]
+        while low <= high and array[high] >= pivot:
+            high = high - 1
+        while low <= high and array[low] <= pivot:
+            low = low + 1
+
+        if low <= high:
+            array[low], array[high] = array[high], array[low]
         else:
             break
-    a[lo], a[end] = a[end], a[lo]
-    return end
+    array[start], array[high] = array[high], array[start]
+
+    return high
 
 
-a = ['Q', 'U', 'I', 'C', 'K', 'S', 'O', 'R', 'T', 'E', 'X', 'A', 'M', 'P', 'L', 'E']
-random.shuffle(a)
-sort(a, 0, len(a)-1)
-print(a)
+array = [29, 99, 27, 41, 66, 28, 44, 78, 87, 19, 31, 76, 58, 88, 83, 97, 12, 21, 44]
+qsort(array, 0, len(array) - 1)
+print(array)
