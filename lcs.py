@@ -16,18 +16,18 @@ class Solution:
         
         @lru_cache(maxsize=None)
         def memo_solve(p1, p2):
-            if p1 == len(text1) or p2 == len(text2):
+            if len(text1) == p1 or len(text2) == p2:
                 return 0
+            else:
+                option1 = memo_solve(p1+1, p2)
 
-            option1 = memo_solve(p1+1, p2)
+                option2 = 0
+                first_occurence =  text2.find(text1[p1], p2)
+                if first_occurence != -1:
+                    option2 = 1 + memo_solve(p1+1, p2 + first_occurence)
 
-            option2 = 0
-            first_occurence = text2.find(text1[p1], p2)
-            if first_occurence != -1:
-                option2 = 1 + memo_solve(p1+1, first_occurence+1)
-            
-            return max(option1, option2)
-        return memo_solve(0,0)
+                return max(option1, option2)
+        return memo_solve(0, 0)
 
 
 s = Solution()
